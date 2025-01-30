@@ -11,7 +11,7 @@ import PublicRoutes from './routes/Public.js'
 
 dotenv.config()
 
-const PORT=process.env.PORT || 4000
+const PORT = process.env.PORT || 4000
 const app=express()
 DBCon()
 app.use(express.json())
@@ -20,9 +20,13 @@ app.get('/',(req,res)=>{
 })
 app.use(express.static('public'))
 app.use(cookieParser())
-const corsOptoins={
-    origin:true,
-    credentials:true
+const corsOptoins = {
+    origin: [
+        'http://localhost:5173',  // Local development
+        'https://backendmy-eyls.onrender.com', // Backend URL
+        // Add your frontend URL when you deploy it
+    ],
+    credentials: true
 }
 app.use(cors(corsOptoins))
 app.use('/auth',AuthRoutes)
